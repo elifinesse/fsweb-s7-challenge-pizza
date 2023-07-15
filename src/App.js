@@ -4,18 +4,18 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 const App = () => {
   return (
-    <>
-      <h1>Teknolojik Yemekler</h1>
-      <p>Burdaki kodu silip kendi headerınızı ekleyebilirsiniz</p>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact></Route>
-          <Route path="/pizza">
-            <Pizza />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <header>
+        Teknolojik Yemekler
+        <img src="../Assets/logo.svg" alt="Teknolojik Yemekler logo" />
+      </header>
+      <Switch>
+        <Route path="/" exact></Route>
+        <Route path="/pizza">
+          <Pizza />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 export default App;

@@ -1,9 +1,24 @@
 import React from "react";
 function Pizza() {
+  const pizzaToppings = [
+    "Pepperoni",
+    "Domates",
+    "Biber",
+    "Sosis",
+    "Mısır",
+    "Sucuk",
+    "Kanada Jambonu",
+    "Sucuk",
+    "Ananas",
+    "Tavuk Izgara",
+    "Jalepeno",
+    "Kabak",
+    "Soğan",
+    "Sarımsak",
+  ];
   return (
     <>
       <header>
-        <img src="../../Assets/logo.svg" alt="Teknolojik Yemekler logo" />
         <nav>
           <a href="#">Anasayfa</a>
           <p>-</p>
@@ -30,7 +45,56 @@ function Pizza() {
           lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
         </p>
       </div>
-      <form></form>
+      <form id="pizza-form">
+        <div className="size">
+          <h3>Boyut Seç</h3>
+            <input
+            type="radio"
+            id="küçük"
+            name="pizza_size"
+            value="küçük"
+          />  <label htmlFor="küçük">Küçük</label>
+          <br></br>
+            <input
+            type="radio"
+            id="orta"
+            name="pizza_size"
+            value="orta"
+          />  <label htmlFor="orta">Orta</label>
+          <br></br>
+           <input
+            type="radio"
+            id="büyük"
+            name="pizza_size"
+            value="büyük"
+          />  <label htmlFor="büyük">Büyük</label>
+        </div>
+        <div className="dough">
+          <label>
+            <h3>Hamur Seç:</h3>
+            <select name="pizza_dough" id="dough">
+              <option value="seç">Hamur Kalınlığı</option>
+              <option value="ince">İnce</option>
+              <option value="kalın">Kalın</option>
+            </select>
+          </label>
+        </div>
+        <div className="toppings"></div>
+        <h3>Ek Malzemeler</h3>
+        <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
+        {pizzaToppings.map((malzeme) => (
+          <label>
+            {" "}
+            <input type="checkbox" value={malzeme} /> {malzeme}
+          </label>
+        ))}
+        <div className="order-note">
+          <label>
+            <h3>Sipariş Notu</h3>
+            <input type="text" />
+          </label>
+        </div>
+      </form>
     </>
   );
 }
