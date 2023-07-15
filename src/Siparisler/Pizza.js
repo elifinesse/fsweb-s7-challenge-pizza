@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 function Pizza() {
   const pizzaToppings = [
     "Pepperoni",
@@ -16,6 +16,14 @@ function Pizza() {
     "Soğan",
     "Sarımsak",
   ];
+  const [orderNo, setOrderNo] = useState(1);
+  function orderInc() {
+    console.log("tıklandı");
+    setOrderNo(orderNo + 1);
+  }
+  function orderDec() {
+    orderNo > 1 ? setOrderNo(orderNo - 1) : setOrderNo(1);
+  }
   return (
     <>
       <header>
@@ -93,6 +101,18 @@ function Pizza() {
             <h3>Sipariş Notu</h3>
             <input type="text" />
           </label>
+        </div>
+        <div className="order-info">
+          <div className="order-number">
+            <p onClick={orderDec}>-</p>
+            <p>{orderNo}</p>
+            <p onClick={orderInc}>+</p>
+          </div>
+          <div className="order-calc">
+            <h3>Sipariş Toplamı</h3>
+            <p>Seçimler</p>
+            <p>Toplam</p>
+          </div>
         </div>
       </form>
     </>
