@@ -79,70 +79,80 @@ function Pizza() {
           </p>
         </div>
         <form id="pizza-form">
-          <div className="size">
-            <h3>
-              Boyut Seç<span className="required">*</span>
-            </h3>
-              <input type="radio" id="küçük" name="pizza_size" value="küçük" /> {" "}
-            <label htmlFor="küçük">Küçük</label>
-            <br></br>
-              <input
-              type="radio"
-              id="orta"
-              name="pizza_size"
-              value="orta"
-            />  <label htmlFor="orta">Orta</label>
-            <br></br>
-             <input
-              type="radio"
-              id="büyük"
-              name="pizza_size"
-              value="büyük"
-            />  <label htmlFor="büyük">Büyük</label>
-          </div>
-          <div className="dough">
-            <label>
+          <div className="size-dough">
+            <div className="size">
               <h3>
-                Hamur Seç<span className="required">*</span>
+                Boyut Seç<span className="required">*</span>
               </h3>
-              <select name="pizza_dough" id="dough">
-                <option value="seç">Hamur Kalınlığı</option>
-                <option value="ince">İnce</option>
-                <option value="kalın">Kalın</option>
-              </select>
-            </label>
+               {" "}
+              <input type="radio" id="küçük" name="pizza_size" value="küçük" /> {" "}
+              <label htmlFor="küçük">Küçük</label>
+              <br></br>
+                <input
+                type="radio"
+                id="orta"
+                name="pizza_size"
+                value="orta"
+              />  <label htmlFor="orta">Orta</label>
+              <br></br>
+               <input type="radio" id="büyük" name="pizza_size" value="büyük" />
+                <label htmlFor="büyük">Büyük</label>
+            </div>
+            <div className="dough">
+              <label>
+                <h3>
+                  Hamur Seç<span className="required">*</span>
+                </h3>
+                <select name="pizza_dough" id="dough">
+                  <option value="seç">Hamur Kalınlığı</option>
+                  <option value="ince">İnce</option>
+                  <option value="kalın">Kalın</option>
+                </select>
+              </label>
+            </div>
           </div>
-          <div className="toppings"></div>
           <h3>Ek Malzemeler</h3>
           <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
-          {pizzaToppings.map((malzeme) => (
-            <label onChange={addTopping}>
-              {" "}
-              <input type="checkbox" value={malzeme} name={malzeme} /> {malzeme}
-            </label>
-          ))}
+          <div className="toppings">
+            {pizzaToppings.map((malzeme) => (
+              <label className="topping" onChange={addTopping}>
+                {" "}
+                <input type="checkbox" value={malzeme} name={malzeme} />{" "}
+                <b>{malzeme}</b>
+              </label>
+            ))}
+          </div>
           <div className="order-note">
             <label>
               <h3>Sipariş Notu</h3>
-              <input type="text" />
+              <input
+                type="text"
+                placeholder="Siparişine eklemek istediğin bir not var mı?"
+              />
             </label>
           </div>
           <div className="order-info">
             <div className="order-number">
-              <p onClick={orderDec}>-</p>
+              <p className="arti-eksi" onClick={orderDec}>
+                -
+              </p>
               <p>{orderNo}</p>
-              <p onClick={orderInc}>+</p>
+              <p className="arti-eksi" onClick={orderInc}>
+                +
+              </p>
             </div>
             <div className="order-calc">
               <h3>Sipariş Toplamı</h3>
               <div className="secimler">
                 <p>Seçimler</p>
-                <p>{secimler}</p>
+                <p>{secimler + ".00₺"}</p>
               </div>
               <div className="toplam">
                 <p>Toplam</p>
-                <p>{toplam}</p>
-                <button type="submit">SİPARİŞ VER</button>
+                <p>{toplam + "₺"}</p>
+                <button id="order-button" type="submit">
+                  SİPARİŞ VER
+                </button>
               </div>
             </div>
           </div>

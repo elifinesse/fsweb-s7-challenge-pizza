@@ -1,3 +1,15 @@
+* {
+  font-family: "Barlow", sans-serif;
+  color: #5f5f5f;
+}
+h3,
+h2 {
+  color: #292929;
+}
+
+p {
+  color: #5f5f5f;
+}
 .order-header {
   background-color: #ce2829;
   display: flex;
@@ -11,21 +23,14 @@
   display: flex;
   font-size: 1.5rem;
 }
-nav a {
+.order-header a,
+span {
   color: #faf7f2;
-  font-family: "Barlow", sans-serif;
 }
 .required {
   color: #ce2829;
 }
-h3 {
-  color: #292929;
-  font-family: "Barlow", sans-serif;
-}
-p {
-  color: #5f5f5f;
-  font-family: "Barlow", sans-serif;
-}
+
 .pizza-order {
   display: flex;
   flex-direction: column;
@@ -44,4 +49,34 @@ p {
 .reviews {
   display: flex;
   gap: 2rem;
+  width: 30%;
+  justify-content: space-between;
+}
+.size-dough {
+  display: flex;
+  justify-content: space-between;
+}
+.dough {
+  width: 35%;
+}
+.toppings {
+  display: flex;
+  flex-wrap: wrap;
+}
+.topping {
+  width: 33%;
+  padding: 0 0 1rem 0;
+}
+.order-note input {
+  width: 100%;
+}
+.order-number {
+  display: flex;
+}
+.order-number p {
+  padding: 1rem;
+  color: #292929;
+}
+.arti-eksi {
+  background-color: #fdc913;
 }
