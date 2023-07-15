@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 function Pizza() {
   const pizzaToppings = [
     "Pepperoni",
@@ -16,14 +16,29 @@ function Pizza() {
     "Soğan",
     "Sarımsak",
   ];
+  const paaPizza = 85.5;
   const [orderNo, setOrderNo] = useState(1);
+  const [secimler, setSecimler] = useState(0);
+  const [toplam, setToplam] = useState(paaPizza);
+
+  function addTopping(e) {
+    if (e.target.checked === true) {
+      setSecimler(secimler + 5);
+    } else {
+      setSecimler(secimler - 5);
+    }
+  }
   function orderInc() {
-    console.log("tıklandı");
     setOrderNo(orderNo + 1);
+    console.log(toplam);
   }
   function orderDec() {
     orderNo > 1 ? setOrderNo(orderNo - 1) : setOrderNo(1);
   }
+
+  useEffect(() => {
+    setToplam((paaPizza + secimler) * orderNo);
+  }, [secimler, orderNo]);
   return (
     <>
       <header>
@@ -55,13 +70,11 @@ function Pizza() {
       </div>
       <form id="pizza-form">
         <div className="size">
-          <h3>Boyut Seç</h3>
-            <input
-            type="radio"
-            id="küçük"
-            name="pizza_size"
-            value="küçük"
-          />  <label htmlFor="küçük">Küçük</label>
+          <h3>
+            Boyut Seç<span className="required">*</span>
+          </h3>
+            <input type="radio" id="küçük" name="pizza_size" value="küçük" /> {" "}
+          <label htmlFor="küçük">Küçük</label>
           <br></br>
             <input
             type="radio"
@@ -79,7 +92,9 @@ function Pizza() {
         </div>
         <div className="dough">
           <label>
-            <h3>Hamur Seç:</h3>
+            <h3>
+              Hamur Seç<span className="required">*</span>
+            </h3>
             <select name="pizza_dough" id="dough">
               <option value="seç">Hamur Kalınlığı</option>
               <option value="ince">İnce</option>
@@ -91,9 +106,9 @@ function Pizza() {
         <h3>Ek Malzemeler</h3>
         <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
         {pizzaToppings.map((malzeme) => (
-          <label>
+          <label onChange={addTopping}>
             {" "}
-            <input type="checkbox" value={malzeme} /> {malzeme}
+            <input type="checkbox" value={malzeme} name={malzeme} /> {malzeme}
           </label>
         ))}
         <div className="order-note">
@@ -110,8 +125,14 @@ function Pizza() {
           </div>
           <div className="order-calc">
             <h3>Sipariş Toplamı</h3>
-            <p>Seçimler</p>
-            <p>Toplam</p>
+            <div className="secimler">
+              <p>Seçimler</p>
+              <p>{secimler}</p>
+            </div>
+            <div className="toplam">
+              <p>Toplam</p>
+              <p>{toplam}</p>
+            </div>
           </div>
         </div>
       </form>
