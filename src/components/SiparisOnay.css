@@ -1,0 +1,14 @@
+.onay {
+  background-color: #ce2829;
+  height: 100vh;
+
+  text-align: center;
+}
+.onay img {
+  padding: 5rem;
+}
+.onay p {
+  color: #faf7f2;
+  font-size: 4rem;
+  font-family: "Barlow Condensed", sans-serif;
+}

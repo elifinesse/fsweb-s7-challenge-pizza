@@ -4,5 +4,6 @@ import "./index.css";
 import App from "./App";
 import "./components/Pizza.css";
 import "./components/Anasayfa.css";
+import "./components/SiparisOnay.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
