@@ -1,4 +1,19 @@
 import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
+
+const yupSchema = Yup.object().shape({
+  pizza_size: Yup.string()
+    .required("Lütfen adınızı yazın.")
+    .min(2, "Geçerli bir isim girin."),
+  pizza_dough: Yup.string()
+    .email("Geçerli bir e-mail adresi girin.")
+    .required("Lütfen e-mail adresinizi yazın."),
+  toppings: Yup.string()
+    .required("Bir şifre belirleyin.")
+    .min(6, "Şifreniz en az 6 karakterden oluşmalıdır."),
+  tos: Yup.boolean().oneOf([true], "Lütfen Kullanım Şartları'nı kabul edin."),
+  // required isn't required for checkboxes.
+});
 
 function Pizza() {
   const pizzaToppings = [
@@ -21,6 +36,19 @@ function Pizza() {
   const [orderNo, setOrderNo] = useState(1);
   const [secimler, setSecimler] = useState(0);
   const [toplam, setToplam] = useState(paaPizza);
+  const [pizzaData, setPizzaData] = useState({
+    pizza_size: "",
+    pizza_dough: "",
+    toppings: [],
+  });
+  const [malzemeler, setMalzemeler] = useState([]);
+  const inputs = document.getElementsByTagName("input");
+  const malzemeArray = [];
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].type === "checkbox" && inputs[i].checked === true) {
+      malzemeArray.push(inputs[i].value);
+    }
+  }
 
   function addTopping(e) {
     if (e.target.checked === true) {
@@ -38,12 +66,26 @@ function Pizza() {
 
   useEffect(() => {
     setToplam((paaPizza + secimler) * orderNo);
+    setMalzemeler(malzemeArray);
+    setPizzaData({
+      pizza_size: "",
+      pizza_dough: "",
+      toppings: malzemeler,
+    });
   }, [secimler, orderNo]);
+  useEffect(() => {
+    setPizzaData({
+      pizza_size: "",
+      pizza_dough: "",
+      toppings: malzemeler,
+    });
+  }, [malzemeler]);
+  console.log(pizzaData);
   let toplamStr = toplam.toString();
   return (
     <div className="order-page">
       <header className="order-header">
-        <img src="../../Assets/logo.svg" alt="Teknolojik Yemekler logo" />
+        <img src="/logo.svg" alt="Teknolojik Yemekler logo" />
         <nav>
           <div>
             <a href="#">Anasayfa</a> <span> - </span>
@@ -130,7 +172,7 @@ function Pizza() {
           <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
           <div className="toppings">
             {pizzaToppings.map((malzeme) => (
-              <label className="topping" onChange={addTopping}>
+              <label className="topping" name="topping" onChange={addTopping}>
                 {" "}
                 <input type="checkbox" value={malzeme} name={malzeme} />{" "}
                 <b>{malzeme}</b>
