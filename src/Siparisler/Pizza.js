@@ -39,6 +39,7 @@ function Pizza() {
   useEffect(() => {
     setToplam((paaPizza + secimler) * orderNo);
   }, [secimler, orderNo]);
+  let toplamStr = toplam.toString();
   return (
     <div className="order-page">
       <header className="order-header">
@@ -85,18 +86,32 @@ function Pizza() {
                 Boyut Seç<span className="required">*</span>
               </h3>
                {" "}
-              <input type="radio" id="küçük" name="pizza_size" value="küçük" /> {" "}
-              <label htmlFor="küçük">Küçük</label>
+              <label>
+                <input
+                  type="radio"
+                  id="küçük"
+                  name="pizza_size"
+                  value="küçük"
+                />
+                  <span className="size-text">Küçük</span>
+              </label>
               <br></br>
-                <input
-                type="radio"
-                id="orta"
-                name="pizza_size"
-                value="orta"
-              />  <label htmlFor="orta">Orta</label>
+              <label>
+                 {" "}
+                <input type="radio" id="orta" name="pizza_size" value="orta" /> {" "}
+                <span className="size-text">Orta</span>
+              </label>
               <br></br>
-               <input type="radio" id="büyük" name="pizza_size" value="büyük" />
-                <label htmlFor="büyük">Büyük</label>
+              <label>
+                 
+                <input
+                  type="radio"
+                  id="büyük"
+                  name="pizza_size"
+                  value="büyük"
+                />
+                  <span className="size-text">Büyük</span>
+              </label>
             </div>
             <div className="dough">
               <label>
@@ -142,18 +157,32 @@ function Pizza() {
               </p>
             </div>
             <div className="order-calc">
-              <h3>Sipariş Toplamı</h3>
-              <div className="secimler">
-                <p>Seçimler</p>
-                <p>{secimler + ".00₺"}</p>
+              <div className="secimler-toplam">
+                <h3>Sipariş Toplamı</h3>
+                <div className="secimler">
+                  <p>
+                    <b>Seçimler</b>
+                  </p>
+                  <p>
+                    <b>{secimler + ".00₺"}</b>
+                  </p>
+                </div>
+                <div className="toplam">
+                  <p>
+                    <b>Toplam</b>
+                  </p>
+                  <p>
+                    <b>
+                      {toplamStr[toplamStr.length - 2] === "."
+                        ? toplam + "0₺"
+                        : toplam + ".00₺"}
+                    </b>
+                  </p>
+                </div>
               </div>
-              <div className="toplam">
-                <p>Toplam</p>
-                <p>{toplam + "₺"}</p>
-                <button id="order-button" type="submit">
-                  SİPARİŞ VER
-                </button>
-              </div>
+              <button id="order-button" type="submit">
+                <b>SİPARİŞ VER</b>
+              </button>
             </div>
           </div>
         </form>

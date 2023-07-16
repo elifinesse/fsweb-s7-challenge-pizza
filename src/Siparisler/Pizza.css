@@ -1,6 +1,7 @@
 * {
   font-family: "Barlow", sans-serif;
   color: #5f5f5f;
+  box-sizing: border-box;
 }
 h3,
 h2 {
@@ -24,7 +25,8 @@ p {
   font-size: 1.5rem;
 }
 .order-header a,
-span {
+span,
+b {
   color: #faf7f2;
 }
 .required {
@@ -63,6 +65,9 @@ span {
   display: flex;
   flex-wrap: wrap;
 }
+.toppings b {
+  color: #5f5f5f;
+}
 .topping {
   width: 33%;
   padding: 0 0 1rem 0;
@@ -70,13 +75,73 @@ span {
 .order-note input {
   width: 100%;
 }
+.order-note {
+  padding: 0 1rem 1rem 1rem;
+}
 .order-number {
   display: flex;
+  align-items: flex-start;
 }
 .order-number p {
   padding: 1rem;
   color: #292929;
+  font-size: 1.2rem;
 }
 .arti-eksi {
   background-color: #fdc913;
+}
+.order-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: #8f8f8f solid 1px;
+}
+.order-calc {
+  width: 70%;
+  border: #cccccc 0.8px solid;
+  border-radius: 3%;
+}
+
+.secimler {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.secimler b {
+  color: #aaa8a8;
+}
+
+.toplam {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.toplam b {
+  color: #ce2829;
+}
+#order-button {
+  background-color: #fdc913;
+  width: 100%;
+  border: none;
+  padding: 1.2rem;
+  border-radius: 3%;
+}
+#order-button b {
+  color: #292929;
+  font-size: 1.2rem;
+}
+.secimler-toplam {
+  padding: 1.5rem 2rem;
+}
+.size-text {
+  color: #5f5f5f;
+  margin-right: 5px;
+  min-width: 100px;
+  display: inline-block;
+  text-align: left;
+}
+.size input {
+  margin: 0;
+  vertical-align: middle;
 }
