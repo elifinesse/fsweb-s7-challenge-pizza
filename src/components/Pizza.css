@@ -158,3 +158,10 @@ b {
 #dough select {
   font-size: 1.2rem;
 }
+.name-input input {
+  width: 50%;
+  padding: 0.5rem;
+  border: #cccccc 0.8px solid;
+  font-weight: bold;
+  border-radius: 5px;
+}

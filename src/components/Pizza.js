@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const yupSchema = Yup.object().shape({
-  pizza_size: Yup.string()
+  name: Yup.string()
     .required("Lütfen adınızı yazın.")
     .min(2, "Geçerli bir isim girin."),
+  pizza_size: Yup.string()
+    .required("Pizza boyutu seçin.")
+    .min(4, "Pizza boyutu seçin."),
   pizza_dough: Yup.string()
-    .email("Geçerli bir e-mail adresi girin.")
-    .required("Lütfen e-mail adresinizi yazın."),
-  toppings: Yup.string()
-    .required("Bir şifre belirleyin.")
-    .min(6, "Şifreniz en az 6 karakterden oluşmalıdır."),
-  tos: Yup.boolean().oneOf([true], "Lütfen Kullanım Şartları'nı kabul edin."),
-  // required isn't required for checkboxes.
+    .required("Hamur kalınlığını seçin.")
+    .max(5, "Hamur kalınlığını seçin."),
+  toppings: Yup.array()
+    .min(4, "En az 4 malzeme seçin.")
+    .max(10, "En fazla 10 malzeme seçebilirsiniz."),
 });
 
 function Pizza() {
@@ -37,11 +38,19 @@ function Pizza() {
   const [secimler, setSecimler] = useState(0);
   const [toplam, setToplam] = useState(paaPizza);
   const [pizzaData, setPizzaData] = useState({
+    name: "",
     pizza_size: "",
     pizza_dough: "",
     toppings: [],
   });
   const [malzemeler, setMalzemeler] = useState([]);
+  const [errors, setErrors] = useState({
+    name: "",
+    pizza_size: "",
+    pizza_dough: "",
+    toppings: [],
+  });
+  const [isFormValid, setFormValid] = useState(false);
   const inputs = document.getElementsByTagName("input");
   const malzemeArray = [];
   for (let i = 0; i < inputs.length; i++) {
@@ -63,25 +72,49 @@ function Pizza() {
   function orderDec() {
     orderNo > 1 ? setOrderNo(orderNo - 1) : setOrderNo(1);
   }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setPizzaData({
+      ...pizzaData,
+      [name]: value,
+    });
+  }
 
   useEffect(() => {
     setToplam((paaPizza + secimler) * orderNo);
     setMalzemeler(malzemeArray);
-    setPizzaData({
-      pizza_size: "",
-      pizza_dough: "",
-      toppings: malzemeler,
-    });
   }, [secimler, orderNo]);
   useEffect(() => {
     setPizzaData({
-      pizza_size: "",
-      pizza_dough: "",
+      ...pizzaData,
       toppings: malzemeler,
     });
   }, [malzemeler]);
   console.log(pizzaData);
   let toplamStr = toplam.toString();
+  function handleSubmit(e) {
+    e.preventDefault();
+    yupSchema
+      .validate(pizzaData)
+      .then(() => {
+        setErrors({});
+        console.log("Pizza data is valid:", pizzaData);
+      })
+      .catch((err) => {
+        // Validation failed, update errors state
+        const validationErrors = {};
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+        setErrors(validationErrors);
+      });
+  }
+  useEffect(() => {
+    yupSchema.isValid(pizzaData).then((valid) => {
+      setFormValid(valid);
+    });
+  }, [pizzaData]);
+
   return (
     <div className="order-page">
       <header className="order-header">
@@ -122,8 +155,15 @@ function Pizza() {
           </p>
         </div>
         <form id="pizza-form">
+          <div className="name-input">
+            <label>
+              <h3>İsim</h3>
+              <input type="text" name="name" id="name-input" />
+            </label>
+            {errors.name && <p className="error">{errors.name}</p>}
+          </div>
           <div className="size-dough">
-            <div className="size">
+            <div className="size" onChange={handleChange}>
               <h3>
                 Boyut Seç<span className="required">*</span>
               </h3>
@@ -133,14 +173,14 @@ function Pizza() {
                   type="radio"
                   id="küçük"
                   name="pizza_size"
-                  value="küçük"
+                  value="Küçük"
                 />
                   <span className="size-text">Küçük</span>
               </label>
               <br></br>
               <label>
                  {" "}
-                <input type="radio" id="orta" name="pizza_size" value="orta" /> {" "}
+                <input type="radio" id="orta" name="pizza_size" value="Orta" /> {" "}
                 <span className="size-text">Orta</span>
               </label>
               <br></br>
@@ -150,34 +190,41 @@ function Pizza() {
                   type="radio"
                   id="büyük"
                   name="pizza_size"
-                  value="büyük"
+                  value="Büyük"
                 />
                   <span className="size-text">Büyük</span>
               </label>
+              {errors.pizza_size && (
+                <p className="error">{errors.pizza_size}</p>
+              )}
             </div>
             <div className="dough">
               <label>
                 <h3>
                   Hamur Seç<span className="required">*</span>
                 </h3>
-                <select name="pizza_dough" id="dough">
+                <select name="pizza_dough" id="dough" onChange={handleChange}>
                   <option value="seç">Hamur Kalınlığı</option>
                   <option value="ince">İnce</option>
                   <option value="kalın">Kalın</option>
                 </select>
               </label>
+              {errors.pizza_dough && (
+                <p className="error">{errors.pizza_dough}</p>
+              )}
             </div>
           </div>
           <h3>Ek Malzemeler</h3>
           <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
           <div className="toppings">
             {pizzaToppings.map((malzeme) => (
-              <label className="topping" name="topping" onChange={addTopping}>
+              <label className="topping" name="toppings" onChange={addTopping}>
                 {" "}
                 <input type="checkbox" value={malzeme} name={malzeme} />{" "}
                 <b>{malzeme}</b>
               </label>
             ))}
+            {errors.toppings && <p className="error">{errors.toppings}</p>}
           </div>
           <div className="order-note">
             <label>
@@ -222,7 +269,7 @@ function Pizza() {
                   </p>
                 </div>
               </div>
-              <button id="order-button" type="submit">
+              <button id="order-button" type="submit" onSubmit={handleSubmit}>
                 <b>SİPARİŞ VER</b>
               </button>
             </div>

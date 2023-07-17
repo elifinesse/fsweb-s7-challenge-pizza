@@ -1,7 +1,7 @@
 import React from "react";
 import Pizza from "./components/Pizza";
 import Anasayfa from "./components/Anasayfa";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SiparisOnay from "./components/SiparisOnay";
 
 const App = () => {
