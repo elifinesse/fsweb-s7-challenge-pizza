@@ -97,3 +97,41 @@ li {
   color: #faf7f2;
   padding: 0 0 2rem 2.5rem;
 }
+.burger-kurye {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+.hackathlon-burger {
+  background-image: url("/adv-aseets/kart-2.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20px;
+  height: 45%;
+}
+.hackathlon-burger h2 {
+  padding: 1rem 0 0 2rem;
+  color: #faf7f2;
+  font-size: 2rem;
+}
+.hackathlon-burger span {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0 2rem 2rem;
+}
+.kurye {
+  background-image: url("/adv-aseets/kart-3.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20px;
+  height: 45%;
+}
+.kurye h2 {
+  padding: 1rem 0 0 2rem;
+  font-size: 2rem;
+}
+.kurye span {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0 2rem 2rem;
+}
