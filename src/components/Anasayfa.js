@@ -32,12 +32,31 @@ function Anasayfa() {
             </div>
           ))}
         </nav>
-        <div className="products">
-          <div className="food-banners">
-            <div className="lezzetus"></div>
-            <div className="burger-kurye">
-              <div className="burger-menu"></div>
-              <div className="kurye"></div>
+        <div className="background">
+          <div className="products">
+            <div className="food-banners">
+              <div className="lezzetus">
+                <h1>
+                  Özel <br></br>Lezzetus
+                </h1>
+                <h3>Position:Absolute Acı Burger</h3>
+                <span className="siparis">SİPARİŞ VER</span>
+              </div>
+              <div className="burger-kurye">
+                <div className="hackathlon-burger">
+                  <h2>
+                    Hackathlon <br /> Burger Menü
+                  </h2>
+                  <span className="siparis">SİPARİŞ VER</span>
+                </div>
+
+                <div className="kurye">
+                  <h2>
+                    Çoooook Hızlı <br /> npm gibi kurye
+                  </h2>
+                  <span className="siparis">SİPARİŞ VER</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
