@@ -7,17 +7,52 @@
 h1 {
   margin: 0;
   color: #faf7f2;
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-family: "Barlow Condensed", sans-serif;
+  font-weight: 200;
 }
 .anasayfa img {
-  padding: 5rem;
+  padding: 3rem;
 }
-.anasayfa p {
+.aciktim {
   color: #292929;
   background-color: #fdc913;
   display: inline-block;
   padding: 0.5rem 3rem;
   border-radius: 30px;
   margin: 2rem;
+}
+.firsat {
+  color: #fdc913;
+  font-family: "Satisfy", cursive;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+}
+.home-container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+.yemekler-nav {
+  padding: 1.5rem 0 1.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }

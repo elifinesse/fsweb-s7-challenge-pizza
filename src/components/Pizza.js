@@ -6,9 +6,7 @@ const yupSchema = Yup.object().shape({
   name: Yup.string()
     .required("Lütfen adınızı yazın.")
     .min(2, "Geçerli bir isim girin."),
-  pizza_size: Yup.string()
-    .required("Pizza boyutu seçin.")
-    .min(4, "Pizza boyutu seçin."),
+  pizza_size: Yup.string().required("Pizza boyutu seçin."),
   pizza_dough: Yup.string()
     .required("Hamur kalınlığını seçin.")
     .max(5, "Hamur kalınlığını seçin."),
@@ -103,9 +101,6 @@ function Pizza() {
       })
       .catch((err) => {
         console.log(err);
-        setErrors({
-          ...errors,
-        });
       });
   }, [pizzaData]);
   let toplamStr = toplam.toString();
@@ -282,9 +277,17 @@ function Pizza() {
                   </p>
                 </div>
               </div>
-              <button id="order-button" type="submit" disabled={!isFormValid}>
-                <b>SİPARİŞ VER</b>
-              </button>
+              {isFormValid ? (
+                <Link to="/onay">
+                  <button id="order-button" type="submit">
+                    <b>SİPARİŞ VER</b>
+                  </button>
+                </Link>
+              ) : (
+                <button id="order-button" type="submit" disabled={!isFormValid}>
+                  <b>SİPARİŞ VER</b>
+                </button>
+              )}
             </div>
           </div>
         </form>
