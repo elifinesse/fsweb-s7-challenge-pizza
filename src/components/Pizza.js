@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
 const yupSchema = Yup.object().shape({
   name: Yup.string()
@@ -25,7 +26,6 @@ function Pizza() {
     "Mısır",
     "Sucuk",
     "Kanada Jambonu",
-    "Sucuk",
     "Ananas",
     "Tavuk Izgara",
     "Jalepeno",
@@ -90,24 +90,27 @@ function Pizza() {
       toppings: malzemeler,
     });
   }, [malzemeler]);
-  console.log(pizzaData);
+  useEffect(() => {
+    console.log(pizzaData);
+    const newPizzaData = { ...pizzaData, toppings: malzemeler };
+    yupSchema
+      .validate(newPizzaData, { abortEarly: false })
+      .then((valid) => {
+        console.log(valid);
+        setErrors({
+          ...errors,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrors({
+          ...errors,
+        });
+      });
+  }, [pizzaData]);
   let toplamStr = toplam.toString();
   function handleSubmit(e) {
     e.preventDefault();
-    yupSchema
-      .validate(pizzaData)
-      .then(() => {
-        setErrors({});
-        console.log("Pizza data is valid:", pizzaData);
-      })
-      .catch((err) => {
-        // Validation failed, update errors state
-        const validationErrors = {};
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-        setErrors(validationErrors);
-      });
   }
   useEffect(() => {
     yupSchema.isValid(pizzaData).then((valid) => {
@@ -154,11 +157,16 @@ function Pizza() {
             denir.
           </p>
         </div>
-        <form id="pizza-form">
+        <form id="pizza-form" onSubmit={handleSubmit}>
           <div className="name-input">
             <label>
               <h3>İsim</h3>
-              <input type="text" name="name" id="name-input" />
+              <input
+                type="text"
+                name="name"
+                id="name-input"
+                onChange={handleChange}
+              />
             </label>
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
@@ -218,7 +226,12 @@ function Pizza() {
           <p>En fazla 10 malzeme seçebilirsiniz. 5₺</p>
           <div className="toppings">
             {pizzaToppings.map((malzeme) => (
-              <label className="topping" name="toppings" onChange={addTopping}>
+              <label
+                className="topping"
+                name="toppings"
+                onChange={addTopping}
+                key={malzeme}
+              >
                 {" "}
                 <input type="checkbox" value={malzeme} name={malzeme} />{" "}
                 <b>{malzeme}</b>
@@ -269,7 +282,7 @@ function Pizza() {
                   </p>
                 </div>
               </div>
-              <button id="order-button" type="submit" onSubmit={handleSubmit}>
+              <button id="order-button" type="submit" disabled={!isFormValid}>
                 <b>SİPARİŞ VER</b>
               </button>
             </div>
