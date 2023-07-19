@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import Footer from "./Footer";
+import Header from "./Header";
 
 const yupSchema = Yup.object().shape({
   name: Yup.string()
@@ -91,12 +92,11 @@ function Pizza() {
     yupSchema
       .validate(newPizzaData, { abortEarly: false })
       .then((valid) => {
-        console.log(valid);
         setErrors([]);
       })
       .catch((err) => {
         console.log(err.errors);
-        setErrors([err.errors]);
+        setErrors(err.errors);
       });
   }, [pizzaData]);
   let toplamStr = toplam.toString();
@@ -111,8 +111,8 @@ function Pizza() {
 
   return (
     <div className="order-page">
-      <header className="order-header">
-        <img src="/logo.svg" alt="Teknolojik Yemekler logo" />
+      <Header />
+      <div className="order-header">
         <nav>
           <div>
             <a href="#">Anasayfa</a> <span> - </span>
@@ -127,7 +127,7 @@ function Pizza() {
             </a>
           </div>
         </nav>
-      </header>
+      </div>
       <div className="pizza-order">
         <div className="pizza-info">
           <h3>Position Absolute Acı Pizza</h3>
