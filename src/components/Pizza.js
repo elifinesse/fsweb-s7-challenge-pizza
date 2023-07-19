@@ -42,6 +42,7 @@ function Pizza() {
     pizza_size: "",
     pizza_dough: "",
     toppings: [],
+    order_note: "",
   });
   const [malzemeler, setMalzemeler] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -92,10 +93,10 @@ function Pizza() {
     yupSchema
       .validate(newPizzaData, { abortEarly: false })
       .then((valid) => {
+        console.log(valid);
         setErrors([]);
       })
       .catch((err) => {
-        console.log(err.errors);
         setErrors(err.errors);
       });
   }, [pizzaData]);
@@ -156,10 +157,10 @@ function Pizza() {
                 type="text"
                 name="name"
                 id="name-input"
+                data-cy="isim"
                 onChange={handleChange}
               />
             </label>
-            {errors.name && <p className="error">{errors.name}</p>}
           </div>
           <div className="size-dough">
             <div className="size" onChange={handleChange}>
@@ -189,13 +190,10 @@ function Pizza() {
                   type="radio"
                   id="büyük"
                   name="pizza_size"
-                  value="Büyük"
+                  value="büyük"
                 />
                   <span className="size-text">Büyük</span>
               </label>
-              {errors.pizza_size && (
-                <p className="error">{errors.pizza_size}</p>
-              )}
             </div>
             <div className="dough">
               <label>
@@ -208,9 +206,6 @@ function Pizza() {
                   <option value="kalın">Kalın</option>
                 </select>
               </label>
-              {errors.pizza_dough && (
-                <p className="error">{errors.pizza_dough}</p>
-              )}
             </div>
           </div>
           <h3>Ek Malzemeler</h3>
@@ -228,14 +223,16 @@ function Pizza() {
                 <b>{malzeme}</b>
               </label>
             ))}
-            {errors.toppings && <p className="error">{errors.toppings}</p>}
           </div>
           <div className="order-note">
             <label>
               <h3>Sipariş Notu</h3>
               <input
                 type="text"
+                id="special-text"
+                name="order_note"
                 placeholder="Siparişine eklemek istediğin bir not var mı?"
+                onChange={handleChange}
               />
             </label>
             <div className="errors">

@@ -21,7 +21,12 @@ function Anasayfa() {
         <h1>
           KOD ACIKTIRIR, <br></br>PİZZA DOYURUR!
         </h1>
-        <Link className="aciktim-button" to="/pizza" exact>
+        <Link
+          className="aciktim-button"
+          data-cy="aciktim-button"
+          to="/pizza"
+          exact
+        >
           <p className="aciktim">ACIKTIM</p>
         </Link>
       </div>
