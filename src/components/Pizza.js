@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Footer from "./Footer";
 
 const yupSchema = Yup.object().shape({
   name: Yup.string()
     .required("Lütfen adınızı yazın.")
-    .min(2, "Geçerli bir isim girin."),
+    .min(2, "Geçerli bir isim yazın."),
   pizza_size: Yup.string().required("Pizza boyutu seçin."),
   pizza_dough: Yup.string()
     .required("Hamur kalınlığını seçin.")
@@ -42,14 +43,10 @@ function Pizza() {
     toppings: [],
   });
   const [malzemeler, setMalzemeler] = useState([]);
-  const [errors, setErrors] = useState({
-    name: "",
-    pizza_size: "",
-    pizza_dough: "",
-    toppings: [],
-  });
+  const [errors, setErrors] = useState([]);
   const [isFormValid, setFormValid] = useState(false);
   const inputs = document.getElementsByTagName("input");
+  const history = useHistory();
   const malzemeArray = [];
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].type === "checkbox" && inputs[i].checked === true) {
@@ -95,12 +92,11 @@ function Pizza() {
       .validate(newPizzaData, { abortEarly: false })
       .then((valid) => {
         console.log(valid);
-        setErrors({
-          ...errors,
-        });
+        setErrors([]);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.errors);
+        setErrors([err.errors]);
       });
   }, [pizzaData]);
   let toplamStr = toplam.toString();
@@ -242,6 +238,11 @@ function Pizza() {
                 placeholder="Siparişine eklemek istediğin bir not var mı?"
               />
             </label>
+            <div className="errors">
+              {errors.map((hata) => (
+                <p className="error">{hata}</p>
+              ))}
+            </div>
           </div>
           <div className="order-info">
             <div className="order-number">
@@ -292,6 +293,7 @@ function Pizza() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

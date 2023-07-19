@@ -6,4 +6,5 @@ import "./components/Pizza.css";
 import "./components/Anasayfa.css";
 import "./components/SiparisOnay.css";
 import "./components/Header.css";
+import "./components/Footer.css";
 ReactDOM.render(<App />, document.getElementById("root"));
