@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
+import axios from "axios";
 
 const yupSchema = Yup.object().shape({
   name: Yup.string()
@@ -48,7 +49,6 @@ function Pizza() {
   const [errors, setErrors] = useState([]);
   const [isFormValid, setFormValid] = useState(false);
   const inputs = document.getElementsByTagName("input");
-  const history = useHistory();
   const malzemeArray = [];
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].type === "checkbox" && inputs[i].checked === true) {
@@ -235,11 +235,9 @@ function Pizza() {
                 onChange={handleChange}
               />
             </label>
-            <div className="errors">
-              {errors.map((hata) => (
-                <p className="error">{hata}</p>
-              ))}
-            </div>
+            <p data-cy="error" className="error">
+              {errors[0]}
+            </p>
           </div>
           <div className="order-info">
             <div className="order-number">

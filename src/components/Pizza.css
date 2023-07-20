@@ -93,6 +93,7 @@ b {
 }
 .arti-eksi {
   background-color: #fdc913;
+  cursor: pointer;
 }
 .order-info {
   padding: 1.5rem;
