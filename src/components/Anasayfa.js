@@ -12,7 +12,6 @@ function Anasayfa() {
     "Fast Food",
     "Gazlı İçecek",
   ];
-  const yiyecek = [{ foto: "/adv-aseets/food-1.png", isim: "Terminal Pizza" }];
   return (
     <div className="home">
       <div className="anasayfa">

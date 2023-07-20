@@ -99,16 +99,15 @@ function Pizza() {
       .catch((err) => {
         setErrors(err.errors);
       });
+
+    yupSchema.isValid(pizzaData).then((valid) => {
+      setFormValid(valid);
+    });
   }, [pizzaData]);
   let toplamStr = toplam.toString();
   function handleSubmit(e) {
     e.preventDefault();
   }
-  useEffect(() => {
-    yupSchema.isValid(pizzaData).then((valid) => {
-      setFormValid(valid);
-    });
-  }, [pizzaData]);
 
   return (
     <div className="order-page">
@@ -201,7 +200,9 @@ function Pizza() {
                   Hamur Seç<span className="required">*</span>
                 </h3>
                 <select name="pizza_dough" id="dough" onChange={handleChange}>
-                  <option value="seç">Hamur Kalınlığı</option>
+                  <option value="default" disabled={true} selected={true}>
+                    Hamur Kalınlığı
+                  </option>
                   <option value="ince">İnce</option>
                   <option value="kalın">Kalın</option>
                 </select>
@@ -280,7 +281,7 @@ function Pizza() {
                   </button>
                 </Link>
               ) : (
-                <button id="order-button" type="submit" disabled={!isFormValid}>
+                <button id="order-button" type="submit" disabled={true}>
                   <b>SİPARİŞ VER</b>
                 </button>
               )}
