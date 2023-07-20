@@ -1,8 +1,6 @@
-import axios from "axios";
 import React from "react";
 
-function SiparisOnay(props) {
-  console.log(props);
+function SiparisOnay() {
   return (
     <div className="onay">
       <img src="/logo.svg" alt="Teknolojik Yemekler logo" />
