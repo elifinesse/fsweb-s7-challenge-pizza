@@ -111,8 +111,8 @@ function Pizza() {
 
   return (
     <div className="order-page">
-      <Header />
       <div className="order-header">
+        <Header />
         <nav>
           <div>
             <a href="#">Anasayfa</a> <span> - </span>
